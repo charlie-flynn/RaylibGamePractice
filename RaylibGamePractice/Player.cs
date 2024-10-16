@@ -21,7 +21,6 @@ namespace RaylibGamePractice
             this.size = size;
             this.color = color;
             this.speed = speed;
-            Raylib.DrawRectangleV(position, size, color);
         }
         public void Update()
         {
@@ -52,8 +51,9 @@ namespace RaylibGamePractice
 
         private void Move(Vector2 direction)
         {
+            float frameTime = Raylib.GetFrameTime();
             // TO DO: make the speed consistent (somethin to do with framerate)
-            position += (direction * speed) * Raylib.GetFrameTime();
+            position += direction * speed * frameTime;
         }
         private void Shoot()
         {

@@ -15,30 +15,29 @@ namespace RaylibGamePractice
         public float frameTime;
         private bool _gameOver = false;
         Player player;
+        private bool _gameStarted = false;
+        
         private void Start()
         {
-            // initialize window, start drawing, create the player, make the background white
-            Raylib.InitWindow(550, 550, "game");
-            Raylib.BeginDrawing();
-            Raylib.SetTargetFPS(60);
-            player = new Player(new Vector2(10, 10), new Vector2(15, 15), Color.Green, 15.0f);
+            // create the player and make the background white
+            player = new Player(new Vector2(10, 10), new Vector2(15, 15), Color.Green, 30.0f);
             Raylib.ClearBackground(Color.White);
+            _gameStarted = true;
         }
 
         private void Update()
-        { 
+        {
+            
+
             // while the game should be running, update everything that should be updated, then clear the background and end drawing
-            while (!Raylib.WindowShouldClose() && !_gameOver)
-            {
                 frameTime = Raylib.GetFrameTime();
                 player.Update();
+
                 Raylib.DrawText(Raylib.GetFPS().ToString(), 10, 10, 20, Color.Blue);
                 Raylib.DrawText(frameTime.ToString(), 10, 30, 20, Color.Red);
+
                 Raylib.ClearBackground(Color.White);
                 Raylib.EndDrawing();
-                
-            }
-
             // when the game isnt running, gmae over is true
             _gameOver = true;
 
@@ -47,18 +46,20 @@ namespace RaylibGamePractice
         
         private void End()
         {
-            Raylib.CloseWindow();
+            
         }
 
         public void Run()
         {
-            Start();
-            while (!_gameOver)
+            if (!_gameStarted)
+                {
+                Start();
+                }
+            Update();
+            if (_gameOver)
             {
-                Update();
+                End();
             }
-
-            End();
         }
     }
 }
