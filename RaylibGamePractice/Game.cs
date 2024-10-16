@@ -12,7 +12,7 @@ namespace RaylibGamePractice
 {
     public class Game
     {
-        public float timer;
+        public float frameTime;
         private bool _gameOver = false;
         Player player;
         private void Start()
@@ -21,26 +21,25 @@ namespace RaylibGamePractice
             Raylib.InitWindow(550, 550, "game");
             Raylib.BeginDrawing();
             Raylib.SetTargetFPS(60);
-            player = new Player(new Vector2(10, 10), new Vector2(15, 15), Color.Green, 10.0f);
+            player = new Player(new Vector2(10, 10), new Vector2(15, 15), Color.Green, 15.0f);
             Raylib.ClearBackground(Color.White);
         }
 
         private void Update()
-        {
-            // every single updatable thing goes in here
-
-            
+        { 
             // while the game should be running, update everything that should be updated, then clear the background and end drawing
             while (!Raylib.WindowShouldClose() && !_gameOver)
             {
-                timer = Raylib.GetFrameTime();
+                frameTime = Raylib.GetFrameTime();
                 player.Update();
                 Raylib.DrawText(Raylib.GetFPS().ToString(), 10, 10, 20, Color.Blue);
-                Raylib.DrawText(timer.ToString(), 10, 30, 20, Color.Red);
+                Raylib.DrawText(frameTime.ToString(), 10, 30, 20, Color.Red);
                 Raylib.ClearBackground(Color.White);
                 Raylib.EndDrawing();
                 
             }
+
+            // when the game isnt running, gmae over is true
             _gameOver = true;
 
         }
