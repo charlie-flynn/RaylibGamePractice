@@ -52,6 +52,7 @@ namespace RaylibGamePractice
         private void Move(Vector2 direction)
         {
             float frameTime = Raylib.GetFrameTime();
+            Console.WriteLine(frameTime);
             // TO DO: make the speed consistent (somethin to do with framerate)
             position += direction * speed * frameTime;
         }
