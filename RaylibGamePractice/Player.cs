@@ -10,17 +10,17 @@ namespace RaylibGamePractice
 {
     internal class Player : IUpdatable, IRenderable
     {
-        private Vector2 position = new Vector2(10, 10);
-        private Vector2 size = new Vector2(10, 10);
-        private Color color = Color.Green;
-        private float speed =  15.0f;
+        private Vector2 _position = new Vector2(10, 10);
+        private Vector2 _size = new Vector2(10, 10);
+        private Color _color = Color.Green;
+        private float _speed =  15.0f;
 
         public Player(Vector2 position, Vector2 size, Color color, float speed)
         {
-            this.position = position;
-            this.size = size;
-            this.color = color;
-            this.speed = speed;
+            this._position = position;
+            this._size = size;
+            this._color = color;
+            this._speed = speed;
         }
         public void Update()
         {
@@ -51,10 +51,8 @@ namespace RaylibGamePractice
 
         private void Move(Vector2 direction)
         {
-            float frameTime = Raylib.GetFrameTime();
-            Console.WriteLine(frameTime);
-            // TO DO: make the speed consistent (somethin to do with framerate)
-            position += direction * speed * frameTime;
+            // TO DO: make the speed consistent (i have no idea why this doesnt work for that)
+            _position += direction * _speed * Raylib.GetFrameTime();
         }
         private void Shoot()
         {
@@ -62,7 +60,7 @@ namespace RaylibGamePractice
         }
         public void Render()
         {
-            Raylib.DrawRectangleV(position, size, color);
+            Raylib.DrawRectangleV(_position, _size, _color);
         }
         
     }

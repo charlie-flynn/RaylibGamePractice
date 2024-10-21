@@ -27,10 +27,9 @@ namespace RaylibGamePractice
 
         private void Update()
         {
-            
 
             // while the game should be running, update everything that should be updated, then clear the background and end drawing
-                frameTime = Raylib.GetFrameTime();
+            frameTime = Raylib.GetFrameTime();
                 player.Update();
 
                 Raylib.DrawText(Raylib.GetFPS().ToString(), 10, 10, 20, Color.Blue);
@@ -38,8 +37,6 @@ namespace RaylibGamePractice
 
                 Raylib.ClearBackground(Color.White);
                 Raylib.EndDrawing();
-            // when the game isnt running, gmae over is true
-            _gameOver = true;
 
         }
         
