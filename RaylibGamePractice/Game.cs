@@ -45,7 +45,7 @@ namespace RaylibGamePractice
         public void Run()
         {
             Start();
-            while (!Raylib.WindowShouldClose() || !_gameOver)
+            while (!Raylib.WindowShouldClose() && !_gameOver)
             {
                 Update();
             }

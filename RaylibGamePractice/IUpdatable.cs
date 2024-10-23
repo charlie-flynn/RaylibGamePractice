@@ -9,7 +9,6 @@ namespace RaylibGamePractice
 {
     internal interface IUpdatable
     {
-        public static List<IUpdatable> updatables = new List<IUpdatable>();
         public void Update();
     }
 }
