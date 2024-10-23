@@ -17,41 +17,26 @@ namespace RaylibGamePractice
 
         public Player(Vector2 position, Vector2 size, Color color, float speed)
         {
-            this._position = position;
-            this._size = size;
-            this._color = color;
-            this._speed = speed;
+            _position = position;
+            _size = size;
+            _color = color;
+            _speed = speed;
+            
         }
         public void Update()
         {
-            Vector2 moveDirection = new Vector2(0, 0);
+            // movement code
+            Vector2 movementInput = new Vector2
+                    (Raylib.IsKeyDown(KeyboardKey.D) - Raylib.IsKeyDown(KeyboardKey.A),
+                    Raylib.IsKeyDown(KeyboardKey.S) - Raylib.IsKeyDown(KeyboardKey.W)).Normalized;
 
-            // check if each key is down, and change the move direction accordingly
-            if (Raylib.IsKeyDown(KeyboardKey.Up))
-            {
-                moveDirection += new Vector2(0, -1);
-            }
-            if (Raylib.IsKeyDown(KeyboardKey.Down))
-            {
-                moveDirection += new Vector2(0, 1);
-            }
-            if (Raylib.IsKeyDown(KeyboardKey.Left))
-            {
-                moveDirection += new Vector2(-1, 0);
-            }
-            if (Raylib.IsKeyDown(KeyboardKey.Right))
-            {
-                moveDirection += new Vector2(1, 0);
-            }
-
-            //normalize the move direction, then move and render
-            Move(moveDirection.Normalized);
+            // feed the movement input into hte move function
+            Move(movementInput);
             Render();
         }
-
         private void Move(Vector2 direction)
         {
-            // TO DO: make the speed consistent (i have no idea why this doesnt work for that)
+            // update the player's position
             _position += direction * _speed * Raylib.GetFrameTime();
         }
         private void Shoot()
