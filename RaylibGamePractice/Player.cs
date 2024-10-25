@@ -10,12 +10,16 @@ namespace RaylibGamePractice
 {
     internal class Player : IUpdatable, IRenderable
     {
-        private Vector2 _position = new Vector2(10, 10);
-        private Vector2 _size = new Vector2(10, 10);
+        private Vector3 _position = new Vector3(10, 10, 0);
+        private Vector3 _size = new Vector3(10, 10, 0);
         private Color _color = Color.Green;
-        private float _speed =  15.0f;
+        private float _speed =  150.0f;
+        private Matrix3 _transform = new Matrix3(
+            10, 10, 10,
+            10, 10, 10,
+            0, 0, 1);
 
-        public Player(Vector2 position, Vector2 size, Color color, float speed)
+        public Player(Vector3 position, Vector3 size, Color color, float speed)
         {
             _position = position;
             _size = size;
@@ -26,18 +30,20 @@ namespace RaylibGamePractice
         public void Update()
         {
             // movement code
-            Vector2 movementInput = new Vector2
+            Vector3 movementInput = new Vector3
                     (Raylib.IsKeyDown(KeyboardKey.D) - Raylib.IsKeyDown(KeyboardKey.A),
-                    Raylib.IsKeyDown(KeyboardKey.S) - Raylib.IsKeyDown(KeyboardKey.W)).Normalized;
+                    Raylib.IsKeyDown(KeyboardKey.S) - Raylib.IsKeyDown(KeyboardKey.W), 0).Normalized * _speed * Raylib.GetFrameTime();
 
             // feed the movement input into hte move function
             Move(movementInput);
             Render();
         }
-        private void Move(Vector2 direction)
+        private void Move(Vector3 direction)
         {
             // update the player's position
-            _position += direction * _speed * Raylib.GetFrameTime();
+            _transform *= Matrix3.CreateTranslation(direction.x, direction.y);
+
+            // update the player's rotation
         }
         private void Shoot()
         {
@@ -45,7 +51,12 @@ namespace RaylibGamePractice
         }
         public void Render()
         {
-            Raylib.DrawRectangleV(_position, _size, _color);
+            Raylib.DrawPoly(
+                new Vector2(_transform.m02, _transform.m12), 
+                4, 
+                10, 
+                45, 
+                _color);
         }
         
     }

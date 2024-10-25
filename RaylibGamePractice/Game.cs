@@ -18,7 +18,7 @@ namespace RaylibGamePractice
         private void Start()
         {
             // create the player and make the background white
-            player = new Player(new Vector2(10, 10), new Vector2(15, 15), Color.Green, 150.0f);
+            player = new Player(new Vector3(10, 10, 0), new Vector3(15, 15, 0), Color.Green, 150.0f);
             Raylib.ClearBackground(Color.White);
             Raylib.BeginDrawing();
         }
