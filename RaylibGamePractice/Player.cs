@@ -15,8 +15,8 @@ namespace RaylibGamePractice
         private Color _color = Color.Green;
         private float _speed =  150.0f;
         private Matrix3 _transform = new Matrix3(
-            10, 10, 10,
-            10, 10, 10,
+            10, 10, 1,
+            10, 10, 1,
             0, 0, 1);
 
         public Player(Vector3 position, Vector3 size, Color color, float speed)
@@ -30,18 +30,19 @@ namespace RaylibGamePractice
         public void Update()
         {
             // movement code
-            Vector3 movementInput = new Vector3
+            Vector2 movementInput = new Vector2
                     (Raylib.IsKeyDown(KeyboardKey.D) - Raylib.IsKeyDown(KeyboardKey.A),
-                    Raylib.IsKeyDown(KeyboardKey.S) - Raylib.IsKeyDown(KeyboardKey.W), 0).Normalized * _speed * Raylib.GetFrameTime();
+                    Raylib.IsKeyDown(KeyboardKey.S) - Raylib.IsKeyDown(KeyboardKey.W)).Normalized * _speed * Raylib.GetFrameTime();
 
             // feed the movement input into hte move function
             Move(movementInput);
             Render();
         }
-        private void Move(Vector3 direction)
+        private void Move(Vector2 direction)
         {
             // update the player's position
             _transform *= Matrix3.CreateTranslation(direction.x, direction.y);
+            Console.WriteLine(direction.x + ", " + direction.y);
 
             // update the player's rotation
         }
